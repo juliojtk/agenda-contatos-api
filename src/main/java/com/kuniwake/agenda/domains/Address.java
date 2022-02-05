@@ -1,48 +1,73 @@
 package com.kuniwake.agenda.domains;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Address {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
 
-	private long id;
-	private int CEP;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+public class Address implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
+	@NotEmpty(message = "CEP Obrigatorio")
+	private String CEP;
+	
+	@NotEmpty(message = "Rua Obrigatorio")
 	private String street;
 	private int number;
 	private String city;
 	private String state;
 
-	private List<Contact> contacts = new ArrayList<>();
+
+	// @ManyToMany(mappedBy = "address")
+	// private Set<Contact> contacts;
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "contact_id")
+	private Contact contact;
 
 	public Address() {
 		super();
 	}
 
-	public Address(long id, int cEP, String street, int number, String city, String state) {
+	public Address(Integer id, String CEP, String street, int number, String city, String state, Contact contact) {
 		super();
 		this.id = id;
-		CEP = cEP;
+		this.CEP = CEP;
 		this.street = street;
 		this.number = number;
 		this.city = city;
 		this.state = state;
+		this.contact = contact;
 	}
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getCEP() {
+	public String getCEP() {
 		return CEP;
 	}
 
-	public void setCEP(int cEP) {
-		CEP = cEP;
+	public void setCEP(String CEP) {
+		this.CEP = CEP;
 	}
 
 	public String getStreet() {
@@ -75,6 +100,14 @@ public class Address {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public Contact getContacts() {
+		return contact;
+	}
+
+	public void setContacts(Contact contact) {
+		this.contact = contact;
 	}
 
 	@Override

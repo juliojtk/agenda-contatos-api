@@ -1,22 +1,51 @@
 package com.kuniwake.agenda.domains;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Contact {
-	private long id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+public class Contact implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
+	@NotEmpty(message = "Campo nome é obrigatorio")
+	@Length(min = 2, max = 30, message = "Campo nome deve ter de 2 a 30 caracteres ")
 	private String name;
+	
+	@NotEmpty(message = "Campo Telefone é obrigatorio")
+	@Length(min = 8, max = 20, message = "Campo telefone deve ter de 2 a 20 caracteres ")
 	private String phone;
+	
+	@Column(unique = true)
 	private String email;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "contact") // Vem da instanciação do obj Contact, na classe de Address
 	private List<Address> address = new ArrayList<>();
 
 	public Contact() {
 		super();
 	}
 
-	public Contact(long id, String name, String phone, String email) {
+	public Contact(Integer id, String name, String phone, String email) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -24,11 +53,11 @@ public class Contact {
 		this.email = email;
 	}
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -56,6 +85,14 @@ public class Contact {
 		this.email = email;
 	}
 
+	public List<Address> getAddress() {
+		return address;
+	}
+
+	public void setAddress(List<Address> address) {
+		this.address = address;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -70,7 +107,7 @@ public class Contact {
 		if (getClass() != obj.getClass())
 			return false;
 		Contact other = (Contact) obj;
-		return id == other.id;
+		return Objects.equals(id, other.id);
 	}
 
 }
