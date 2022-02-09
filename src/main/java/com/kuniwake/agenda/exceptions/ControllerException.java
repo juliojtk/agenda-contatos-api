@@ -29,14 +29,14 @@ public class ControllerException {
 				c.getMessage());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
-	
+
 	// Exception de validação de campos
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<StandardError> customValidateErros(
-			MethodArgumentNotValidException e, ServletRequest request) {
+	public ResponseEntity<StandardError> customValidateErros(MethodArgumentNotValidException e,
+			ServletRequest request) {
 		ValidatioError error = new ValidatioError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
 				"Erro na validação dos campos");
-		for(FieldError f : e.getBindingResult().getFieldErrors()) {
+		for (FieldError f : e.getBindingResult().getFieldErrors()) {
 			error.addErrors(f.getField(), f.getDefaultMessage());
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);

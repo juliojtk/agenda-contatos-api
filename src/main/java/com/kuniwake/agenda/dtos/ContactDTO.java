@@ -12,17 +12,17 @@ import com.kuniwake.agenda.domains.Contact;
 public class ContactDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Integer id;
-	
+
 	@NotEmpty(message = "Campo nome é obrigatorio")
 	@Length(min = 2, max = 30, message = "Campo nome deve ter de 2 a 30 caracteres ")
 	private String name;
-	
+
 	@NotEmpty(message = "Campo Telefone é obrigatorio")
 	@Length(min = 8, max = 20, message = "Campo telefone deve ter de 2 a 20 caracteres ")
 	private String phone;
-	
+
 	@Column(unique = true)
 	private String email;
 

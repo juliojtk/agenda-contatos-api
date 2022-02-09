@@ -18,7 +18,7 @@ public class AddressService {
 
 	@Autowired
 	private AddressRepository addressRepository;
-	
+
 	@Autowired
 	private ContactService contactService;
 
@@ -37,17 +37,17 @@ public class AddressService {
 
 	// Salvar Endereço
 	public Address saveAddress(Integer id_contact, Address address) {
-		
+
 		address.setId(null);
 		Contact contact = contactService.findById(id_contact);
 		address.setContacts(contact);
-		
+
 		return addressRepository.save(address);
 	}
 
 	// Alterando Endereço
 	public Address updateAddress(Integer id, Address address) {
-		
+
 		Address a = findByIdAddress(id);
 
 		a.setCEP(address.getCEP());
@@ -67,7 +67,8 @@ public class AddressService {
 		try {
 			addressRepository.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new CustomDataIntegrityViolationExcepition("Id não foi encontrado" + id + " pode ter alguma relação com tabela Contact");
+			throw new CustomDataIntegrityViolationExcepition(
+					"Id não foi encontrado" + id + " pode ter alguma relação com tabela Contact");
 		}
 	}
 

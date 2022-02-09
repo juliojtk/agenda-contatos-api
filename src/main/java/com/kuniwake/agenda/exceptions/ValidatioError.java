@@ -3,8 +3,8 @@ package com.kuniwake.agenda.exceptions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValidatioError extends StandardError{
-	
+public class ValidatioError extends StandardError {
+
 	private List<CustomFieldErrorMsg> errors = new ArrayList<>();
 
 	public ValidatioError() {
@@ -14,7 +14,7 @@ public class ValidatioError extends StandardError{
 	public ValidatioError(Long time, Integer status, String msg) {
 		super(time, status, msg);
 	}
-	
+
 	public List<CustomFieldErrorMsg> getErrors() {
 		return errors;
 	}
@@ -23,5 +23,5 @@ public class ValidatioError extends StandardError{
 	public void addErrors(String fildName, String msg) {
 		this.errors.add(new CustomFieldErrorMsg(fildName, msg));
 	}
-	
+
 }

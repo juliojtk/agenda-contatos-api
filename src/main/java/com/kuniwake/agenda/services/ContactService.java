@@ -47,7 +47,8 @@ public class ContactService {
 		try {
 			contactRepository.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new CustomDataIntegrityViolationExcepition("Contado de ID: " + id + " não pode ser deletado, possui Endereços associados");
+			throw new CustomDataIntegrityViolationExcepition(
+					"Contado de ID: " + id + " não pode ser deletado, possui Endereços associados");
 		}
 	}
 

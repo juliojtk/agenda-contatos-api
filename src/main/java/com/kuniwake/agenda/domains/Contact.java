@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,15 +25,15 @@ public class Contact implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@NotEmpty(message = "Campo nome é Obrigatorio")
 	@Length(min = 2, max = 255, message = "Campo nome deve ter de 2 a 255 caracteres ")
 	private String name;
-	
+
 	@NotEmpty(message = "Campo Telefone é Obrigatorio")
 	@Length(min = 11, message = "Campo telefone deve ter 11 digitos, Ex: (ddd) 9-9988-2030")
 	private String phone;
-	
+
 	@Email
 	private String email;
 

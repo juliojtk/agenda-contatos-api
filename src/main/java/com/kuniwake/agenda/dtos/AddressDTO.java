@@ -12,16 +12,16 @@ public class AddressDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
-	
+
 	@NotEmpty(message = " Campo CEP é Obrigatorio")
 	private String CEP;
-	
+
 	@NotEmpty(message = "Campo Rua é Obrigatorio")
 	private String street;
-	
+
 	@NotEmpty(message = "Campo Bairro é Obrigatorio")
 	private String district;
-	
+
 	private int number;
 	private String city;
 	private String state;
