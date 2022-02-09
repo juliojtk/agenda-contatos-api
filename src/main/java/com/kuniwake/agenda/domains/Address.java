@@ -3,6 +3,7 @@ package com.kuniwake.agenda.domains;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,19 +23,25 @@ public class Address implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@NotEmpty(message = "CEP Obrigatorio")
 	private String CEP;
-	
+
+	@Column(nullable = false)
 	@NotEmpty(message = "Rua Obrigatorio")
 	private String street;
+	
+	@Column(nullable = false)
+	@NotEmpty(message = "Bairro é Obrigatorio")
+	private String district;
+	
+	@Column(nullable = false)
 	private int number;
+	
 	private String city;
 	private String state;
+	private String propertyType;
 
-
-	// @ManyToMany(mappedBy = "address")
-	// private Set<Contact> contacts;
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "contact_id")
@@ -43,14 +51,16 @@ public class Address implements Serializable {
 		super();
 	}
 
-	public Address(Integer id, String CEP, String street, int number, String city, String state, Contact contact) {
+	public Address(Integer id, String CEP, String street, String district, int number, String city, String state, String propertyType, Contact contact) {
 		super();
 		this.id = id;
 		this.CEP = CEP;
 		this.street = street;
+		this.district = district;
 		this.number = number;
 		this.city = city;
 		this.state = state;
+		this.propertyType = propertyType;
 		this.contact = contact;
 	}
 
@@ -76,6 +86,14 @@ public class Address implements Serializable {
 
 	public void setStreet(String street) {
 		this.street = street;
+	}
+
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
 	}
 
 	public int getNumber() {
@@ -108,6 +126,14 @@ public class Address implements Serializable {
 
 	public void setContacts(Contact contact) {
 		this.contact = contact;
+	}
+
+	public String getPropertyType() {
+		return propertyType;
+	}
+
+	public void setPropertyType(String propertyType) {
+		this.propertyType = propertyType;
 	}
 
 	@Override

@@ -11,7 +11,6 @@ public class CustomFieldErrorMsg implements Serializable {
 
 	public CustomFieldErrorMsg() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public CustomFieldErrorMsg(String fildName, String msg) {

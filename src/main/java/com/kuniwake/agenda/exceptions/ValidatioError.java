@@ -24,6 +24,4 @@ public class ValidatioError extends StandardError{
 		this.errors.add(new CustomFieldErrorMsg(fildName, msg));
 	}
 	
-	
-
 }

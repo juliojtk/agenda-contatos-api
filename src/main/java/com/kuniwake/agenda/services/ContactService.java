@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.kuniwake.agenda.domains.Contact;
 import com.kuniwake.agenda.dtos.ContactDTO;
 import com.kuniwake.agenda.exceptions.CustomDataIntegrityViolationExcepition;
-import com.kuniwake.agenda.exceptions.CustomNotFoundExcepition;
 import com.kuniwake.agenda.repositories.ContactRepository;
 
 @Service
@@ -48,7 +47,7 @@ public class ContactService {
 		try {
 			contactRepository.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new CustomDataIntegrityViolationExcepition("Contado de " + id + " não pode ser deletado, possui Endereços associados");
+			throw new CustomDataIntegrityViolationExcepition("Contado de ID: " + id + " não pode ser deletado, possui Endereços associados");
 		}
 	}
 

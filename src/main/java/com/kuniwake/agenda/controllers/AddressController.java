@@ -33,24 +33,28 @@ public class AddressController {
 	AddressService addressService;
 
 	@GetMapping
-	public ResponseEntity<List<AddressDTO>> getAllAddress() {
-		List<Address> list = addressService.getAllAddress();
-		
+	public ResponseEntity<List<AddressDTO>> getAllAddress(
+			@RequestParam(value = "contact", defaultValue = "0") Integer id_cont) {
+		List<Address> list = addressService.getAllAddress(id_cont);
+
 		// Convertendo listAddress em ListAddressDTO
 		List<AddressDTO> listDto = list.stream().map(obj -> new AddressDTO(obj)).collect(Collectors.toList());
-		return ResponseEntity.ok(listDto);
+		return ResponseEntity.ok().body(listDto);
 	}
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Address> findById(@PathVariable Integer id) {
 		Address a = addressService.findByIdAddress(id);
-		return ResponseEntity.ok(a);
+		return ResponseEntity.ok().body(a);
 	}
 
 	@PostMapping
-	public ResponseEntity<Address> saveAddress(@Valid @RequestParam(value = "contact", defaultValue = "0") Integer id_contact, @RequestBody Address address) {
+	public ResponseEntity<Address> saveAddress(
+			@Valid @RequestParam(value = "contact", defaultValue = "0") Integer id_contact,
+			@RequestBody Address address) {
 		Address objNew = addressService.saveAddress(id_contact, address);
-		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/address/{id}").buildAndExpand(objNew.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/address/{id}")
+				.buildAndExpand(objNew.getId()).toUri();
 		return ResponseEntity.created(uri).body(objNew);
 	}
 

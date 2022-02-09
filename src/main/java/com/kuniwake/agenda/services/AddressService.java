@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.kuniwake.agenda.domains.Address;
 import com.kuniwake.agenda.domains.Contact;
-import com.kuniwake.agenda.dtos.AddressDTO;
 import com.kuniwake.agenda.exceptions.CustomDataIntegrityViolationExcepition;
 import com.kuniwake.agenda.exceptions.CustomNotFoundExcepition;
 import com.kuniwake.agenda.repositories.AddressRepository;
@@ -18,14 +17,15 @@ import com.kuniwake.agenda.repositories.AddressRepository;
 public class AddressService {
 
 	@Autowired
-	AddressRepository addressRepository;
+	private AddressRepository addressRepository;
 	
 	@Autowired
-	ContactService contactService;
+	private ContactService contactService;
 
-	// Buscar todos os endereços
-	public List<Address> getAllAddress() {
-		return addressRepository.findAll();
+	// Buscar todos os endereços relacionados a um Contato
+	public List<Address> getAllAddress(Integer id_cont) {
+		contactService.findById(id_cont);
+		return addressRepository.findAllByContact(id_cont);
 	}
 
 	// Buscar endereço por ID
@@ -39,24 +39,24 @@ public class AddressService {
 	public Address saveAddress(Integer id_contact, Address address) {
 		
 		address.setId(null);
-		// Buscando para ver se o Endereço possui um Contato
 		Contact contact = contactService.findById(id_contact);
-		// Setando o Contato no Endereço, classe Address conhece seu Contato
 		address.setContacts(contact);
-		
 		
 		return addressRepository.save(address);
 	}
 
 	// Alterando Endereço
 	public Address updateAddress(Integer id, Address address) {
+		
 		Address a = findByIdAddress(id);
 
 		a.setCEP(address.getCEP());
 		a.setStreet(address.getStreet());
+		a.setDistrict(address.getDistrict());
 		a.setNumber(address.getNumber());
 		a.setCity(address.getCity());
 		a.setState(address.getState());
+		a.setPropertyType(address.getPropertyType());
 
 		return addressRepository.save(a);
 	}

@@ -9,7 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-// Classe para manipular as Exceptions
+// Classe para Manipular as Exceptions
 @ControllerAdvice
 public class ControllerException {
 

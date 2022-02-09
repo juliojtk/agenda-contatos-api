@@ -11,7 +11,6 @@ public class CustomNotFoundExcepition extends RuntimeException{
 
 	public CustomNotFoundExcepition(String message) {
 		super(message);
-		
 	}
 	
 }

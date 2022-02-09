@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
@@ -26,15 +27,15 @@ public class Contact implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotEmpty(message = "Campo nome é obrigatorio")
-	@Length(min = 2, max = 30, message = "Campo nome deve ter de 2 a 30 caracteres ")
+	@NotEmpty(message = "Campo nome é Obrigatorio")
+	@Length(min = 2, max = 255, message = "Campo nome deve ter de 2 a 255 caracteres ")
 	private String name;
 	
-	@NotEmpty(message = "Campo Telefone é obrigatorio")
-	@Length(min = 8, max = 20, message = "Campo telefone deve ter de 2 a 20 caracteres ")
+	@NotEmpty(message = "Campo Telefone é Obrigatorio")
+	@Length(min = 11, message = "Campo telefone deve ter 11 digitos, Ex: (ddd) 9-9988-2030")
 	private String phone;
 	
-	@Column(unique = true)
+	@Email
 	private String email;
 
 	@JsonIgnore

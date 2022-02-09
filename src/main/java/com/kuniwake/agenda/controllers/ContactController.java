@@ -59,12 +59,11 @@ public class ContactController {
 
 		return ResponseEntity.ok().body(new ContactDTO(c));
 	}
-	
+
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> deleteContact(@PathVariable Integer id) {
 		contactService.delContact(id);
 		return ResponseEntity.noContent().build();
-		
-	}
 
+	}
 }

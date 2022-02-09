@@ -6,21 +6,29 @@ import javax.validation.constraints.NotEmpty;
 
 import com.kuniwake.agenda.domains.Address;
 
+// Implementação de um DTO como exemplo, foi replicado todos os campos, em vez de apenas alguns.
 public class AddressDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
-	@NotEmpty(message = "CEP Obrigatorio")
+	
+	@NotEmpty(message = " Campo CEP é Obrigatorio")
 	private String CEP;
+	
+	@NotEmpty(message = "Campo Rua é Obrigatorio")
 	private String street;
+	
+	@NotEmpty(message = "Campo Bairro é Obrigatorio")
+	private String district;
+	
 	private int number;
 	private String city;
 	private String state;
+	private String propertyType;
 
 	public AddressDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public AddressDTO(Address a) {
@@ -28,9 +36,11 @@ public class AddressDTO implements Serializable {
 		this.id = a.getId();
 		this.CEP = a.getCEP();
 		this.street = a.getStreet();
+		this.district = a.getDistrict();
 		this.number = a.getNumber();
 		this.city = a.getCity();
 		this.state = a.getState();
+		this.propertyType = a.getPropertyType();
 	}
 
 	public Integer getId() {
@@ -57,6 +67,14 @@ public class AddressDTO implements Serializable {
 		this.street = street;
 	}
 
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+
 	public int getNumber() {
 		return number;
 	}
@@ -79,6 +97,14 @@ public class AddressDTO implements Serializable {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public String getPropertyType() {
+		return propertyType;
+	}
+
+	public void setPropertyType(String propertyType) {
+		this.propertyType = propertyType;
 	}
 
 }

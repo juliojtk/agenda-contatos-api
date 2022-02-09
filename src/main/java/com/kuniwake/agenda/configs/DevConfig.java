@@ -11,18 +11,19 @@ import com.kuniwake.agenda.services.DbService;
 @Configuration
 @Profile("dev")
 public class DevConfig {
-	
+
 	@Autowired
 	private DbService dbService;
-	
+
 	@Value("${spring.jpa.hibernate.ddl-auto}")
 	String strategy;
-	
+
 	@Bean
 	public boolean instanceDb() {
-		if(strategy.equals("create")) {
+		if (strategy.equals("create")) {
 			this.dbService.instanceDb();
-		} return false;
+		}
+		return false;
 	}
 
 }
